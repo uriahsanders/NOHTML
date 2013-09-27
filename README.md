@@ -53,5 +53,7 @@ Live example,
 
 Option to use objects instead of function arguments for most methods,  
 
-support for both classes and id's  
+support for both classes and id's,  
+
+support for more HTML (ul's, tables, etc.)
 
