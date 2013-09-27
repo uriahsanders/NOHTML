@@ -22,8 +22,10 @@ Because of this, I created NOHTML, so I could write smaller javascript scripts, 
 It doesn't do much, just sets up a page for you, that lets you write GUI programs similar to how you would write a CLI one. However, I plan to improve the script to make development in other areas easier as well. For the moment, it is excellent for learning, testing code ideas/concepts, and
 writing small computational scripts.
 
-Example: (http://uriahsanders.github.io/examples/NOHTML.html)
+Example:   
 --------
+  
+Live example: http://uriahsanders.github.io/examples/NOHTML.html  
 
 ~~~javascript
 
@@ -34,11 +36,10 @@ $(document).ready(function(){
 	_.input("Please enter your name.", 'name');
 	_.input("Please enter your age.", 'age');
 	_.button('mybutton', 'Compute', function(){
-		if(_.val('age') >= 18){
+		if(_.val('age') >= 18)
 			   _.printout("#name is over 18.");
-		}else{
+		else
 			   _.printout("#name is under 18!");
-		}
 	});
 });
 
