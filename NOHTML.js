@@ -17,7 +17,7 @@ var NOHTML = NOHTML || (function($){
 			});
 		});
 		//add starting HTML
-		$('<div class="row text-center"></div>').appendTo(document.body);
+		$('<div class="row text-center"></div>').prependTo(document.body);
 		$('<div id="NOHTML_wrapper"class="span8"style="padding-right:20px; border-right: 1px solid #ccc;"><h1 id="NOHTML_title"style="cursor:pointer;">'+title+'</h1></div>').appendTo('.row'); //area for forms
 		$('<div id="NOHTML_output"class="span4"><h1>Output</h1></div>').appendTo('.row'); //area for output
 	};
@@ -38,13 +38,13 @@ var NOHTML = NOHTML || (function($){
 	//for strings: 'hi #name' (in quotes)
 	Public.printout = function(txt){
 		//replace #'s with id value
-		var regex = /(?:\s|^|\()#([a-zA-Z][\w\-\$]*)(?:\s|^$|$|\))/gim;
-		if(txt.search(regex) != -1){
-			var matches = txt.match(regex);
-			for(var i = 0; i < matches.length; ++i){
-				txt = txt.replace(regex, ' '+$(matches[i]).val());
-			}
-		}
+		// var regex = /(?:\s|^|\()#([a-zA-Z][\w\-\$]*)(?:\s|^$|$|\))/gim;
+		// if(txt.search(regex) != -1){
+		// 	var matches = txt.match(regex);
+		// 	for(var i = 0; i < matches.length; ++i){
+		// 		txt = txt.replace(regex, ' '+$(matches[i]).val());
+		// 	}
+		// }
 		$(Private.output).append('<br />'+txt+'<br />');
 	};
 	Public.print = function(txt){
@@ -67,8 +67,14 @@ var NOHTML = NOHTML || (function($){
 		});
 	};
 	//for numbers
-	Public.val = function(id){
+	Public.intval = function(id){
 		return parseInt($('#'+id).val());
+	};
+	Public.floatval = function(id){
+		return parseFloat($('#'+id).val());
+	};
+	Public.val = function(id){
+		return $('#'+id).val();
 	};
 	return Public;
 })(jQuery);
