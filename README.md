@@ -31,7 +31,7 @@ Live example: http://uriahsanders.github.io/examples/NOHTML.html
 
 var _ = NOHTML; //use whatever prefix you'd like
 var equation = 'Equation: d = .5(Vi + Vf)t';
-			_.start("Physics program"); //name of your program, reset script onclick
+_.start("Physics program"); //name of your program, reset script onclick
 _.print("What would you like to solve for?");
 _.print("(You must know at least 3 values)");
 _.select('choice', function(){
