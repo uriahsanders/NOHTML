@@ -4,40 +4,17 @@
 	future versions will assist serious development as well
 */
 var NOHTML = NOHTML || (function($){
-	Object.size = function(obj) {
+	"use strict";
+	Object.size = Object.size || function(obj) {
 	    var size = 0, key;
 	    for (key in obj) {
 	        if (obj.hasOwnProperty(key)) ++size;
 	    }
 	    return size;
 	};
-    "use strict";
 	var Private = {};
 	Private.wrapper = '#NOHTML_wrapper';
 	Private.output = '#NOHTML_output';
-	var Public = {};
-	Public.start = function(title){
-		$(document).ready(function(){
-			//reset program onclick
-			$(document).on('click', '#NOHTML_title', function(){ //onclick:
-				$(Private.output).html('<h1>Output</h1>');
-				$('input').val('');
-				$('input').removeAttr('disabled');
-			});
-			//add starting HTML
-			$('<div class="row text-center"></div>').prependTo(document.body);
-			$('<div id="NOHTML_wrapper"class="span8"style="padding-right:20px; border-right: 1px solid #ccc;"><h1 id="NOHTML_title"style="cursor:pointer;">'+title+'</h1></div>').appendTo('.row'); //area for forms
-			$('<div id="NOHTML_output"class="span4"><h1>Output</h1></div>').appendTo('.row'); //area for output
-		});
-	};
-	//create any element with an object
-	Public.create = function(what, obj){
-		obj = obj || {};
-		$(document).ready(function(){
-			//expand the object into html
-			$(Private.expand(what, obj)).appendTo(Private.wrapper);
-		});
-	};
 	//expand JSON into an element
 	Private.expand = function(what, obj){
 		var element, type, classes, style, id, txt, options;
@@ -64,22 +41,55 @@ var NOHTML = NOHTML || (function($){
 		else element += '>'+txt+'</'+what+'>';
 		return '<br />'+element+'<br />';
 	};
+	var Public = {};
+	Public.start = function(title){
+		$(document).ready(function(){
+			//add starting HTML
+			$('<div class="row text-center"></div>').prependTo('body');
+			$('<div id="NOHTML_wrapper"class="span8"style="padding-right:20px; border-right: 1px solid #ccc;"><h1 id="NOHTML_title"style="cursor:pointer;">'+title+'</h1></div>').appendTo('.row'); //area for forms
+			$('<div id="NOHTML_output"class="span4"><h1>Output</h1></div>').appendTo('.row'); //area for output
+		});
+	};
+	Public.end = function(){
+		//reset program onclick
+		$(document).ready(function(){
+			var CONTENT = $('body').html();
+			$(document).on('click', '#NOHTML_title', function(){ //onclick:
+				$('body').html(CONTENT);
+			});
+		});
+	};
+	//create any element with an object
+	Public.create = function(what, obj){
+		obj = obj || {};
+		$(document).ready(function(){
+			//expand the object into html
+			$(Private.expand(what, obj)).appendTo(Private.wrapper);
+		});
+	};
 	//expand JSON into a table or list
 	Public.expand = function(what, obj){
 		$(document).ready(function(){
-			if(what === 'list'){
+			//these are actually pretty simple, just sticking data into a var and appending
+			if(what === 'list'){ //ul or ol
 				var list = '<'+obj.type+' id="'+obj.id+'"class="list-group">';
 				for(var i = 0; i < obj.items.length; ++i){
+					//add each item into ul with all the information
 					list += '<li id="'+obj.ids[i]+'"class="list-group-item '+obj.classes[i]+'">'+obj.items[i]+'</li>';
 				}
 				list += '</ul>';
 				$(Private.wrapper).append('<br />'+list+'<br />');
 			}else if(what === 'table'){
 				var table = '<table id="'+obj.id+'"class="table"><tr>';
-				for(var i = 0; i < obj.headers.length; ++i) table += '<th>'+obj.headers[i]+'</th>';
+				//adding headers <th>
+				for(var i = 0; i < obj.headers.length; ++i){
+					table += '<th>'+obj.headers[i]+'</th>';
+				} 
 				table += '</tr>';
-				for(var i = 0; i < Object.size(obj.data); ++i){
+				//for loop for dividing into rows
+				for(var i = 0; i < Object.size(obj.data); ++i){ //get length of assoc array
 					table += '<tr>';
+					//print contents of each row
 					for(var j = 0; j < obj.data['row'+i].length; ++j){
 						table += '<td>'+obj.data['row'+i][j]+'</td>';
 					}
@@ -100,13 +110,14 @@ var NOHTML = NOHTML || (function($){
 	//select boxes
 	Public.select = function(id, func){
 		var select = '<select id="'+id+'">';
+		//all extra arguments are options
 		for(var i = 2; i < arguments.length; ++i){
 			select += '<option>'+arguments[i]+'</option>';
 		}
 		select += '</select>';
 		$(document).ready(function(){
 			$(document).on('change', '#'+id, function(){
-				func();
+				func(); //call supplied function onclick
 			});
 			$('<br />'+select+'<br />').appendTo(Private.wrapper);
 		});
