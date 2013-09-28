@@ -69,10 +69,6 @@ Coming soon:
 
 Improving the script overall, as it originated as a little experiment, so it's pretty bad :P,  
 
-Option to use objects instead of function arguments for most methods,  
-
-support for both classes and id's,  
-
 support for more HTML (ul's, tables, etc.)  
 
 In closing:
