@@ -1,8 +1,10 @@
 /*	
 	JS script to allow linear format of programming, similar to the command line in nature
 	so beginners can focus less on html/css, and more on JS
+	future versions will assist serious development as well
 */
 var NOHTML = NOHTML || (function($){
+    "use strict";
 	var Private = {};
 	Private.wrapper = '#NOHTML_wrapper';
 	Private.output = '#NOHTML_output';
@@ -23,7 +25,7 @@ var NOHTML = NOHTML || (function($){
 	};
 	//create any element with an object
 	Public.create = function(what, obj){
-		var obj = obj || {};
+		obj = obj || {};
 		$(document).ready(function(){
 			//expand the object into html
 			$(Public.expand(what, obj)).appendTo(Private.wrapper);
@@ -91,7 +93,7 @@ var NOHTML = NOHTML || (function($){
 		$(document).ready(function(){
 			$(Private.wrapper).append('<br /><span id="'+id+'">'+txt+'</span><br />');
 		});
-	}
+	};
 	Public.remove = function(id){
 		$(document).ready(function(){
 			$('#'+id).remove(); //remove an element
@@ -114,16 +116,16 @@ var NOHTML = NOHTML || (function($){
 	};
 	//for numbers
 	Public.intval = function(id){
-		return parseInt($('#'+id).val());
+		return parseInt($('#'+id).val(), 10);
 	};
 	Public.floatval = function(id){
-		return parseFloat($('#'+id).val());
+		return parseFloat($('#'+id).val(), 10);
 	};
 	Public.val = function(id){
 		return $('#'+id).val();
 	};
 	Public.txt = function(id){
 		return $('#'+id).text();
-	}
+	};
 	return Public;
 })(jQuery);
