@@ -4,6 +4,13 @@
 	future versions will assist serious development as well
 */
 var NOHTML = NOHTML || (function($){
+	Object.size = function(obj) {
+	    var size = 0, key;
+	    for (key in obj) {
+	        if (obj.hasOwnProperty(key)) ++size;
+	    }
+	    return size;
+	};
     "use strict";
 	var Private = {};
 	Private.wrapper = '#NOHTML_wrapper';
@@ -28,11 +35,11 @@ var NOHTML = NOHTML || (function($){
 		obj = obj || {};
 		$(document).ready(function(){
 			//expand the object into html
-			$(Public.expand(what, obj)).appendTo(Private.wrapper);
+			$(Private.expand(what, obj)).appendTo(Private.wrapper);
 		});
 	};
 	//expand JSON into an element
-	Public.expand = function(what, obj){
+	Private.expand = function(what, obj){
 		var element, type, classes, style, id, txt, options;
 		//empty string if not set
 		txt = obj.txt || '';
@@ -56,6 +63,32 @@ var NOHTML = NOHTML || (function($){
 		}
 		else element += '>'+txt+'</'+what+'>';
 		return '<br />'+element+'<br />';
+	};
+	//expand JSON into a table or list
+	Public.expand = function(what, obj){
+		$(document).ready(function(){
+			if(what === 'list'){
+				var list = '<'+obj.type+' id="'+obj.id+'"class="list-group">';
+				for(var i = 0; i < obj.items.length; ++i){
+					list += '<li id="'+obj.ids[i]+'"class="list-group-item '+obj.classes[i]+'">'+obj.items[i]+'</li>';
+				}
+				list += '</ul>';
+				$(Private.wrapper).append('<br />'+list+'<br />');
+			}else if(what === 'table'){
+				var table = '<table id="'+obj.id+'"class="table"><tr>';
+				for(var i = 0; i < obj.headers.length; ++i) table += '<th>'+obj.headers[i]+'</th>';
+				table += '</tr>';
+				for(var i = 0; i < Object.size(obj.data); ++i){
+					table += '<tr>';
+					for(var j = 0; j < obj.data['row'+i].length; ++j){
+						table += '<td>'+obj.data['row'+i][j]+'</td>';
+					}
+					table += '</tr>';
+				}
+				table += '</table>';
+				$(Private.wrapper).append('<br />'+table+'<br />');
+			}
+		});
 	};
 	//input forms
 	Public.input = function(id, prompt){
@@ -96,7 +129,7 @@ var NOHTML = NOHTML || (function($){
 	};
 	Public.remove = function(id){
 		$(document).ready(function(){
-			$('#'+id).remove(); //remove an element
+			$('#'+id).fadeOut().remove(); //remove an element
 		});
 	};
 	Public.disable = function(id){
