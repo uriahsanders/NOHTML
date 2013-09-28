@@ -68,7 +68,9 @@ Coming soon:
 
 Improving the script overall, as it originated as a little experiment, so it's pretty bad :P,  
 
-support for more HTML (ul's, tables, etc.)  
+Docs,
+
+Making the script work without _.start()
 
 In closing:
 -----------
