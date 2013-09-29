@@ -31,10 +31,10 @@ Live example: http://uriahsanders.github.io/examples/NOHTML.html
 
 var _ = NOHTML; //use whatever prefix you'd like
 var equation = 'Equation: d = .5(Vi + Vf)t';
-_.start("Physics program"); //name of your program, reset script onclick
+_.start("Physics program"); //this sets up a default environment for you, with wrapper & output
 _.print("What would you like to solve for?");
 _.print("(You must know at least 3 values)");
-_.select('choice', function(){
+_.select('choice', 'std', function(){
 	_.change('equation1', equation+'; Find: '+_.val('choice'));
 }, 'Initial velocity', 'Final velocity', 'Displacement', 'Time');
 _.print(equation, 'equation1');
@@ -49,17 +49,18 @@ _.button('mybutton', 'Solve', function(){
 			answer = .5*(_.floatval('vi') + _.floatval('vf'))*_.floatval('t');
 			break;
 		case 'Initial velocity':
-			answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vi');
-			break;
-		case 'Final velocity':
 			answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vf');
 			break;
+		case 'Final velocity':
+			answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vi');
+			break;
 		case 'Time':
-			answer = _.floatval('d')/(.5(_.floatval('vi') + _.floatval('vf')));
+			answer = _.floatval('d')/(.5*(_.floatval('vi') + _.floatval('vf')));
 			break;
 	}
 	_.printout("Answer: "+_.val('choice')+' = '+answer);
 });
+_.end(); //save original state of code to reset on title click
 
 ~~~~
 
@@ -68,9 +69,7 @@ Coming soon:
 
 Improving the script overall, as it originated as a little experiment, so it's pretty bad :P,  
 
-Docs,
-
-Making the script work without _.start()
+Docs
 
 In closing:
 -----------
