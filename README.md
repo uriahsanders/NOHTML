@@ -11,6 +11,9 @@ jQuery
 About
 -----
 
+**Update!: NOHTML is no longer binded to the default environment; You can use it as a normal framework by omitting start() and end()**  
+
+
 Javascript is my favorite language, but sometimes it can be a pain to setup HTML and CSS for each and every single script that you write. Because
 of this, I would often times find myself resorting to python to create small, quick scripts. However, I always enjoyed writing javascript more, and always missed running my scripts in the browser. Also, looking back, it may have been benificial to have been able to learn javascript without worrying about html.  
 
