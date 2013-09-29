@@ -20,7 +20,7 @@ of this, I would often times find myself resorting to python to create small, qu
 
 Because of this, I created NOHTML, so I could write smaller javascript scripts, without worrying about much other than javascript.
 It doesn't do much, just sets up a page for you, that lets you write GUI programs similar to how you would write a CLI one. However, I plan to improve the script to make development in other areas easier as well. For the moment, it is excellent for learning, testing code ideas/concepts, and
-writing small computational scripts.
+writing small computational scripts. **(Not anymore...now you can use it for anything!)**
 
 Example:   
 --------
