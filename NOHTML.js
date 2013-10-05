@@ -119,6 +119,12 @@ var NOHTML = NOHTML || (function($) {
 			Private.attachTo('<div id="' + id + '">' + txt + '</div>', attch);
 		});
 	};
+	//spans
+	Public.span = function(id, txt, attch) {
+		$(document).ready(function() {
+			Private.attachTo('<span id="' + id + '">' + txt + '</span>', attch);
+		});
+	};
 	//input forms
 	Public.input = function(id, prompt, attch) {
 		$(document).ready(function() {
