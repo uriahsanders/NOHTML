@@ -35,7 +35,7 @@ Use the code I'm about to give you:
 Note, that you have to make the myNOHTMLsite.js file yourself. You can change the file to be called whatever you like.
 
 ###Can I haz example?
-Sure! There is a live example located [here](http://uriahsanders.github.io/examples/NOHTML.html).  
+Sure! There is a live example located in the source [here](http://uriahsanders.github.io/examples/graph.html).  
 And here's the code for that example:
 ```
 var _ = NOHTML; //use whatever prefix you'd like
